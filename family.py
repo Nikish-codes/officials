@@ -26,25 +26,25 @@ MAX_ITEMS = int(os.environ.get("MAX_ITEMS") or 0) or None
 # by the family owner (see CONSENT.md). Any number of workers allowed; raw pages kept, hidden rows not decoded.
 PROJECTS = [
     {
-        "name": f"{FAMILY}-myneta",              # E02
+        "name": f"{FAMILY}-candidates",              # E02
         "title": "MyNeta candidate affidavits (ADR)",
         "task": "myneta",
         "target": "myneta.info",
         "env": {"SITE": "https://myneta.info"},
         "probe": f"{FAMILY}:myneta.info",
         # no cap of our own: ADR allows any number of workers (CONSENT.md); the hub's per-target limit (8 by default, shared with
-        # officials-myneta-party) and its back-off on slow answers or refusals still apply
+        # myneta-party) and its back-off on slow answers or refusals still apply
         "unit_label": "list page", "record_label": "candidate",
         "items": myneta_queue(),                 # plan_myneta.queue_items(): list pages, winners, expenses, recontest
     },
     {
-        "name": f"{FAMILY}-myneta-party",           # E04/E06 as ADR's HTML, plus ADR's electoral-bond tables
+        "name": f"{FAMILY}-party",           # E04/E06 as ADR's HTML, plus ADR's electoral-bond tables
         "title": "MyNeta party finances: donations (Form 24A), income-expenditure, electoral bonds (ADR)",
         "task": "myneta_party",
         "target": "myneta.info",
         "env": {"SITE": "https://myneta.info"},
         "probe": f"{FAMILY}:myneta.info",
-        # no cap of our own (see officials-myneta)
+        # no cap of our own (see myneta-candidates)
         "unit_label": "page", "record_label": "row",
         "items": plan_myneta_party(),
     },

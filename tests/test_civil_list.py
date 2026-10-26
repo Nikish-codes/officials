@@ -94,13 +94,13 @@ def test_main_against_test_hub(monkeypatch):
              ER.format(3): page("er_sheet_SYNTHETIC.html"), ER.format(4): 500}
     items = [{"key": "er-00001-00002", "payload": {"start": 1, "end": 2, "expected": 2}},
              {"key": "er-00003-00004", "payload": {"start": 3, "end": 4, "expected": 2}}]
-    st = run_main(civil_list, monkeypatch, "officials-ias-er", items, FakeSession(pages))
-    q = st["queue"]["officials-ias-er"]
+    st = run_main(civil_list, monkeypatch, "myneta-ias-er", items, FakeSession(pages))
+    q = st["queue"]["myneta-ias-er"]
     assert q["er-00001-00002"]["status"] == "done" and q["er-00001-00002"]["fetched"] == 1
     assert q["er-00003-00004"]["status"] == "failed" and "1 ER sheets missing" in q["er-00003-00004"]["error"]
-    assert set(st["records"]["officials-ias-er"]) == {"er-1", "er-3"}
-    assert ("er_sheet", "er-4") in st["failures"]["officials-ias-er"]
-    m = st["metrics"]["officials-ias-er"]
+    assert set(st["records"]["myneta-ias-er"]) == {"er-1", "er-3"}
+    assert ("er_sheet", "er-4") in st["failures"]["myneta-ias-er"]
+    m = st["metrics"]["myneta-ias-er"]
     assert m["n_http"] == 4 and m["t_http_s"] >= 0 and m["er_empty"] == 1
     assert [r["state"] for r in st["runs"].values()] == ["finished"]
 

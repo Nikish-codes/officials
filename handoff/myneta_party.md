@@ -86,7 +86,7 @@ in the raw capture, so about 11% of Form 24A rows are missing from the records. 
  "target": "myneta.info", "env": {"SITE": "https://myneta.info"}, "probe": f"{FAMILY}:myneta.info", "max_workers": 1,
  "unit_label": "page", "record_label": "row", "items": plan_myneta_party()}
 ```
-The scrape.json task is `"myneta_party": ["python", "myneta_party.py"]`. It shares the per-host limit with officials-myneta. A plan
+The scrape.json task is `"myneta_party": ["python", "myneta_party.py"]`. It shares the per-host limit with myneta-candidates. A plan
 workflow runs `python plan_myneta_party.py` and commits `data/myneta_party.json`, like plan-myneta. `scrape-check` passed in a
 temp copy with the task added: 1 item, rerun with the same ids, upload verified.
 

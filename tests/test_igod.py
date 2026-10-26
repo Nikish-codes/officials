@@ -184,15 +184,15 @@ def test_main_against_test_hub(monkeypatch):
     items = [{"key": "min-x", "payload": {"kind": "org", "id": MIN, "name": "Ministry of Examples", "levels": 0}},
              {"key": "leg-categories", "payload": {"kind": "index", "url": f"{S}/leg/categories", "name": "Legislature", "levels": 1}},
              {"key": "apx-categories", "payload": {"kind": "index", "url": f"{S}/apx/categories", "name": "Apex", "levels": 1}}]
-    st = run_main(igod, monkeypatch, "officials-igod", items, FakeSession(site))
-    q = st["queue"]["officials-igod"]
+    st = run_main(igod, monkeypatch, "myneta-igod", items, FakeSession(site))
+    q = st["queue"]["myneta-igod"]
     assert q["min-x"]["status"] == "done" and q["min-x"]["fetched"] == 1
     assert q["leg-categories"]["status"] == "failed" and "1 pages missing" in q["leg-categories"]["error"]
     assert q["apx-categories"]["status"] == "failed" and "2 not walked" in q["apx-categories"]["error"]   # D1, D2 pages
-    f = st["failures"]["officials-igod"]
+    f = st["failures"]["myneta-igod"]
     assert ("igod_page", f"{S}/leg/categories") in f and ("igod_unwalked", "apx-categories") in f
-    assert f"org:{MIN}" in st["records"]["officials-igod"]
-    assert st["metrics"]["officials-igod"]["n_http"] == 1 + 1 + 3
+    assert f"org:{MIN}" in st["records"]["myneta-igod"]
+    assert st["metrics"]["myneta-igod"]["n_http"] == 1 + 1 + 3
     assert [r["state"] for r in st["runs"].values()] == ["finished"]
 
 

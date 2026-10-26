@@ -1,6 +1,6 @@
 # E07 members (MPs / MLAs / ministers): handoff
 
-Status (2026-10-26): code written and unit-tested; wired into family.py (officials-sansad, -kerala, -wikidata). Not run against
+Status (2026-10-26): code written and unit-tested; wired into family.py (myneta-sansad, -kerala, -wikidata). Not run against
 the hub. The Wikidata kinds were redesigned the same day (see "Wikidata"). No requests went to sansad.in, eci.gov.in, affidavit.eci.gov.in or pmindia.gov.in.
 
 ## Files
@@ -20,9 +20,9 @@ the hub. The Wikidata kinds were redesigned the same day (see "Wikidata"). No re
 
 | Project | target | items | max_workers | probe url, expect |
 |---|---|---|---|---|
-| officials-sansad | sansad.in | `m["sansad"]`: 1 LS roster + 60 RS pages | 1 | `https://sansad.in/api_ls/business/AllLoksabhaAndSessionDates`, `loksabha` (**unverified**; the hub probes from the team IP, which sansad blocks, so this probe may hold the project forever: owner decides) |
-| officials-wikidata | **www.wikidata.org** (family.py still says query.wikidata.org: change target and probe) | `m["wikidata"]`: 232 items (41 LS, 58 ministers, 133 assembly) | 1 | `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q16556694&props=labels&languages=en&format=json&maxlag=5`, `Member of the Lok Sabha` (verified 2026-10-26; with maxlag in it the probe also holds the project while Wikidata is lagged) |
-| officials-kerala | niyamasabha.org | `m["kerala"]`: KLA 1-16 | 1 | `https://niyamasabha.org/codes/mem_1.htm`, `Members of Previous Assembly` (verified 2026-10-26) |
+| myneta-sansad | sansad.in | `m["sansad"]`: 1 LS roster + 60 RS pages | 1 | `https://sansad.in/api_ls/business/AllLoksabhaAndSessionDates`, `loksabha` (**unverified**; the hub probes from the team IP, which sansad blocks, so this probe may hold the project forever: owner decides) |
+| myneta-wikidata | **www.wikidata.org** (family.py still says query.wikidata.org: change target and probe) | `m["wikidata"]`: 232 items (41 LS, 58 ministers, 133 assembly) | 1 | `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q16556694&props=labels&languages=en&format=json&maxlag=5`, `Member of the Lok Sabha` (verified 2026-10-26; with maxlag in it the probe also holds the project while Wikidata is lagged) |
+| myneta-kerala | niyamasabha.org | `m["kerala"]`: KLA 1-16 | 1 | `https://niyamasabha.org/codes/mem_1.htm`, `Members of Previous Assembly` (verified 2026-10-26) |
 
   The Kerala kind waits at least 10 s between items (Crawl-delay). Setting `delay_ms` 10000 on that project also works.
 

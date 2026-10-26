@@ -39,7 +39,7 @@ check it by hand.
 Total: ~175 folders, ~270,000 candidates, ~13,500 list pages. That's ~270,000 requests, about 110 runner-hours at 2 workers and
 ~3 s a request.
 
-## Item kinds (payload `kind`) and records (all in project officials-myneta)
+## Item kinds (payload `kind`) and records (all in project myneta-candidates)
 | kind | payload | requests | records |
 |---|---|---|---|
 | candidates_page (default when `kind` is missing, so old items still work) | election, page | 1 + ~18 | `<election>:<candidate_id>`, kind "candidate" |

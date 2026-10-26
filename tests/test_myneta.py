@@ -283,15 +283,15 @@ def test_main_against_test_hub(monkeypatch, tmp_path):
              {"key": "LokSabha2019/winners", "payload": {"kind": "winners", "election": "LokSabha2019"}},
              {"key": "karnataka2018/recontest", "payload": {"kind": "recontest", "election": "karnataka2018"}},
              {"key": "LokSabha2019/expenses000", "payload": {"kind": "expenses", "election": "LokSabha2019", "ids": ["5069", "5522"]}}]
-    st = run_main(myneta, monkeypatch, "officials-myneta", items, FakeSession(pages))
-    q = st["queue"]["officials-myneta"]
+    st = run_main(myneta, monkeypatch, "myneta-candidates", items, FakeSession(pages))
+    q = st["queue"]["myneta-candidates"]
     assert q[f"{el}/p0001"]["status"] == "done" and q[f"{el}/p0001"]["fetched"] == 18
     assert q["LokSabha2019/winners"]["status"] == q["karnataka2018/recontest"]["status"] == "done"
     assert q["LokSabha2019/expenses000"]["status"] == "failed" and q["LokSabha2019/expenses000"]["fetched"] == 1
-    rec = st["records"]["officials-myneta"]
+    rec = st["records"]["myneta-candidates"]
     assert sum(k.startswith(f"{el}:") for k in rec) == 18 and "LokSabha2019:expense:5069" in rec
-    assert ("myneta_page", "LokSabha2019:expense:5522") in st["failures"]["officials-myneta"]
-    m = st["metrics"]["officials-myneta"]
+    assert ("myneta_page", "LokSabha2019:expense:5522") in st["failures"]["myneta-candidates"]
+    m = st["metrics"]["myneta-candidates"]
     assert m["n_http"] == 1 + 18 + 1 + 1 + 2 and m["t_http_s"] >= 0 and m["http_500"] == 1 and m["rows_hidden"] == 2 + 60 + 20
     assert len(st["uploads"]) == 1 + 18 + 1 + 1 + 1
     assert [r["state"] for r in st["runs"].values()] == ["finished"]
